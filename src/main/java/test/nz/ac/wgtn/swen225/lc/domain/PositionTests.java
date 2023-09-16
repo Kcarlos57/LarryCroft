@@ -1,4 +1,4 @@
-package test.nz.ac.wgtn.swen225.lc.persistency;
+package test.nz.ac.wgtn.swen225.lc.domain;
 
 
 import nz.ac.wgtn.swen225.lc.domain.Position;
