@@ -1,10 +1,12 @@
 # Larry Crofts Adventures
 
+```
 Domain: strongjona
 App: burkehami
 Renderer: carloskhal
 Persistency: Hyewon
 Recorder: chambenath
+```
 
 ## Description
 
