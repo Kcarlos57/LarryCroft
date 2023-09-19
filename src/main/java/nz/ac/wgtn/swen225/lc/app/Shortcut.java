@@ -3,23 +3,10 @@ package nz.ac.wgtn.swen225.lc.app;
 import java.awt.event.KeyEvent;
 
 public class Shortcut {
-    SpecialKeys specialKey;
-    KeyEvent key;
+    private SpecialKeys specialKey;
+    private KeyEvent key;
 
-    public Shortcut(String name) {
-        specialKey = SpecialKeys.NONE;
-        key = null;
-    }
-
-    public Shortcut setKey(KeyEvent e) {
-        key = e;
-        return this;
-    }
-
-    public Shortcut setSpecialKey(SpecialKeys key) {
-        specialKey = key;
-        return this;
-    }
+    private String name;
 
     enum SpecialKeys {
         CTRL,
@@ -41,5 +28,54 @@ public class Shortcut {
                     return false;
             }
         }
+    }
+
+    /**
+     * Create a new shortcut with the given name.
+     *
+     * @param name The name of the shortcut.
+     */
+    public Shortcut(String name) {
+        this.name = name;
+        specialKey = SpecialKeys.NONE;
+        key = null;
+    }
+
+    /**
+     * Set the key for this shortcut.
+     *
+     * @param e The key event to set.
+     * @return This shortcut.
+     */
+    public Shortcut setKey(KeyEvent e) {
+        key = e;
+        return this;
+    }
+
+    /**
+     * Set the special key for this shortcut.
+     *
+     * @param key The special key to set.
+     * @return This shortcut.
+     */
+    public Shortcut setSpecialKey(SpecialKeys key) {
+        specialKey = key;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+
+
+    /**
+     * Check if the given key event matches this shortcut.
+     *
+     * @param e The key event to check.
+     * @return
+     */
+    public boolean matches(KeyEvent e) {
+        return specialKey.matches(e) && (key == null || key.getKeyCode() == e.getKeyCode());
     }
 }
