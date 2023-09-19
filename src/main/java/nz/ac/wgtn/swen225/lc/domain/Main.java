@@ -9,9 +9,6 @@ import java.util.function.Supplier;
 
 class Main{
     public static void main(String args[]){
-
-        System.out.println("Linking Modules");
-
         Domain domain = new Domain();
         App app = new App();
         Renderer renderer = new Renderer();
@@ -23,7 +20,5 @@ class Main{
         renderer.SetModuleLinks(domain);
         persistency.SetModuleLinks(domain);
         recorder.SetModuleLinks(persistency,app);
-
-
     }
 }
