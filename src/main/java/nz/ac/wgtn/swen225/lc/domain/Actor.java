@@ -57,6 +57,12 @@ public class Actor{
         return this.position;
     }
 
+    /**
+     * Returns the reference to the image of the actor
+     * @return
+     */
+    public URL getImageReference(){ return  imageReference; }
+
 
 
 
