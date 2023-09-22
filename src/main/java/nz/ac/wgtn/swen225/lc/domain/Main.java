@@ -1,12 +1,15 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
 import nz.ac.wgtn.swen225.lc.app.App;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Tile_Wall;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
-import java.util.function.Supplier;
 
+/**
+ *  Sets up the Game
+ */
 class Main{
     public static void main(String args[]){
 
@@ -24,6 +27,8 @@ class Main{
         persistency.SetModuleLinks(domain);
         recorder.SetModuleLinks(persistency,app);
 
+        System.out.println("Starting Game");
 
+        domain.Setup();
     }
 }
