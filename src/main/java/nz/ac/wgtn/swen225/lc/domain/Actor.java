@@ -36,8 +36,8 @@ public class Actor{
      */
     public void Move(Domain.Direction direction){
         switch (direction){
-            case Up -> position.setX(position.getY()-1);
-            case Down -> position.setX(position.getY()+1);
+            case Up -> position.setY(position.getY()-1);
+            case Down -> position.setY(position.getY()+1);
             case Left -> position.setX(position.getX()-1);
             case Right -> position.setX(position.getX()+1);
         }
@@ -53,7 +53,7 @@ public class Actor{
     /**
      * Gets the actors current position
      */
-    public Position GetPosition(){
+    public Position getPosition(){
         return this.position;
     }
 

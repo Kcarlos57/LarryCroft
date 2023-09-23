@@ -21,7 +21,6 @@ public class Domain {
 
 
     private Persistency persistency = null;
-
     private Level currentLevel = null;
 
 
@@ -42,9 +41,10 @@ public class Domain {
 
         //TODO Cannot impement properly until the format of the persistency class is created, temp for now so I can keep working
 
-        String defaultLevel = "Level1";
-        LoadLevel(defaultLevel);
-
+       // String defaultLevel = "Level1";
+        //LoadLevel(defaultLevel);
+        currentLevel = new Level();
+        System.out.println(currentLevel.toString());
 
     }
 
@@ -81,27 +81,13 @@ public class Domain {
 
 
 
-
-
     /**
      * Handles attempting to move larry in the specified direction
      * @param direction
      */
     public void TryMoveLarry(Direction direction){
+        if(currentLevel == null) throw new IllegalStateException("Cannot move larry, level is not loaded");
+        currentLevel.MoveLarry(direction);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
