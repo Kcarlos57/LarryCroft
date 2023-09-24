@@ -1,23 +1,43 @@
 package nz.ac.wgtn.swen225.lc.domain.tiles;
 
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
+import nz.ac.wgtn.swen225.lc.domain.items.Key;
 
 import java.net.URL;
 
 public class Tile_LockedDoor implements Tile{
+
+    public Tile_LockedDoor(Key key){
+        requiredKey = key;
+    }
+
+    //Keeps track of if the door is open or not
+    private boolean doorOpen = false;
+
+    //Keeps Track of the type of key needed to open the door
+    private Item requiredKey = null;
+
+    public void OpenDoor(Key key){
+        if(requiredKey.equals(key)){
+            doorOpen = true;
+        }
+    }
+
+
     @Override
     public boolean isWalkable() {
-        return false;
+        return doorOpen;
     }
 
     @Override
     public URL getTileImageReference() {
-        return getResource("/Tiles/WallTile.png");
+        String target = (doorOpen)? "ClosedDoor" : "OpenDoor";
+        return getResource("/Tiles/" + target + ".png");
     }
 
     @Override
     public String toString() {
-        return "#";
+        return (doorOpen)? "D" : "X";
     }
 
     @Override
