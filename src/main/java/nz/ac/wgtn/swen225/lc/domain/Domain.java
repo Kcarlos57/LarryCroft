@@ -43,7 +43,26 @@ public class Domain {
 
        // String defaultLevel = "Level1";
         //LoadLevel(defaultLevel);
-        currentLevel = new Level();
+        currentLevel = new Level("#######" +
+                "#OOTOO#" +
+                "#OOOLO#" +
+                "#OOOOO#" +
+                "#OOOOO#" +
+                "#TOOOO#" +
+                "#######",7,7);
+
+        System.out.println(currentLevel.toString());
+        TryMoveLarry(Direction.Up);
+
+        System.out.println(currentLevel.toString());
+        TryMoveLarry(Direction.Up);
+
+        System.out.println(currentLevel.toString());
+        TryMoveLarry(Direction.Up);
+
+        System.out.println(currentLevel.toString());
+        TryMoveLarry(Direction.Left);
+
         System.out.println(currentLevel.toString());
 
     }
@@ -87,7 +106,10 @@ public class Domain {
      */
     public void TryMoveLarry(Direction direction){
         if(currentLevel == null) throw new IllegalStateException("Cannot move larry, level is not loaded");
-        currentLevel.MoveLarry(direction);
+        try {
+            currentLevel.MoveLarry(direction);
+        }catch (InvalidMovementException e) { System.out.println(e); }
+
 
     }
 }

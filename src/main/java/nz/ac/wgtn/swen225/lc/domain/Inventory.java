@@ -13,8 +13,9 @@ public class Inventory {
         inventorySize = 8;
         items = new Item[inventorySize];
     }
-    Item[] items;
-    int inventorySize;
+    private Item[] items;
+    private int inventorySize;
+    private int numItems = 0;
 
 
     /**
@@ -28,6 +29,7 @@ public class Inventory {
 
         int pos = getFirstEmptySlot();
         items[pos] = item;
+        numItems++;
 
 
     }
@@ -45,6 +47,7 @@ public class Inventory {
 
         if(items[position]!=null) throw new IllegalStateException("Inventory slot is taken");
         items[position] = item;
+        numItems++;
     }
 
     /**
@@ -76,6 +79,7 @@ public class Inventory {
         for(int i = 0; i < getInventorySize();i++){
             items[i] = null;
         }
+        numItems = 0;
     }
 
     /**
@@ -88,6 +92,14 @@ public class Inventory {
         }
         throw new IllegalStateException("Cannot add item to Inventory, it is full");
         // return -1;
+    }
+
+    /**
+     * Returns if the inventory is full
+     * @return
+     */
+    public boolean isFull(){
+        return numItems < inventorySize;
     }
 
 }

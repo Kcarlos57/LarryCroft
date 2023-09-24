@@ -1,4 +1,5 @@
 package nz.ac.wgtn.swen225.lc.domain;
+import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.items.Treasure;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile_Empty;
@@ -16,27 +17,24 @@ public class Level {
      * Creates a default level for testing
      */
     public Level(){
-        TempBuildFromString(
-                "#######" +
-                "#OOTOO#" +
-                "#OOOLO#" +
-                "#OOOOO#" +
-                "#OOOOO#" +
-                "#TOOOO#" +
-                "#######",7,7);
+
     }
     /**
      * Creates a level from relevant data
      */
-    public Level(String levelName){
-
+    public Level(String levelName, int width, int height){
+        TempBuildFromString(levelName,width,height);
+        inventory = new Inventory();
     }
     int width, height;
     private Tile[][] tiles;
     private Actor larry;
     private Actor[] actors;
+    private Inventory inventory;
 
     int treasureNum;
+    int levelTreasure;
+    int collectedTreasure;
 
     /**
      * Returns a 2d array of tile objects containing the tile data o the level
@@ -60,7 +58,7 @@ public class Level {
      * @param direction
      */
     public void MoveLarry(Domain.Direction direction){
-        Position checkPos = larry.getPosition();
+        Position checkPos = new Position(larry.getPosition().getX(),larry.getPosition().getY());
 
         switch (direction){
             case Up -> {checkPos.setY(checkPos.getY()-1);  }
@@ -70,10 +68,31 @@ public class Level {
         }
         if (CheckValidMoveTile(checkPos)){
             larry.Move(direction);
+
+            if(tiles[larry.getPosition().getX()][larry.getPosition().getY()].hasItem()){
+                PickupItem();
+            }
+
         }else{
             throw new InvalidMovementException("Player cannot walk onto tile");
         }
 
+
+    }
+
+    private void PickupItem(){
+        if(tiles[larry.getPosition().getX()][larry.getPosition().getY()].getItem().canGoInInventory()){
+            if (!inventory.isFull()) {
+                inventory.addItem(tiles[larry.getPosition().getX()][larry.getPosition().getY()].RemoveItem());
+            }
+        }else {
+            Item item = tiles[larry.getPosition().getX()][larry.getPosition().getY()].RemoveItem();
+            if(item instanceof Treasure){
+                levelTreasure--;
+                collectedTreasure++;
+            }
+
+        }
     }
 
     /**
@@ -134,6 +153,7 @@ public class Level {
                         Tile t = new Tile_Empty();
                         t.SetItem(new Treasure());
                         treasureNum++;
+                        levelTreasure++;
                         tiles[x][y] = t;
                         break;
                     default:
@@ -154,12 +174,19 @@ public class Level {
                     stringBuilder.append('L');
                 }else if (tiles[i][j].hasItem()){
                     stringBuilder.append('T');
+
                 }else{
                     stringBuilder.append(tiles[i][j].toString());
                 }
             }
             stringBuilder.append('\n');
         }
+        stringBuilder.append('\n');
+
+        stringBuilder.append("Treasure Collected: " + collectedTreasure +"/" +treasureNum + '\n');
+        stringBuilder.append("Treasure Remaining: " + levelTreasure +"/" +treasureNum);
+
+
         return stringBuilder.toString();
     }
 
