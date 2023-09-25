@@ -53,6 +53,7 @@ public class AppController implements KeyListener {
 
         Recorder.addAction("Player moved " + direction);
         app.domain.TryMoveLarry(direction);
+        app.UpdateRenderer();
     }
 
     /**

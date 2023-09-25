@@ -61,7 +61,10 @@ public class Actor{
      * Returns the reference to the image of the actor
      * @return
      */
-    public URL getImageReference(){ return  imageReference; }
+    public URL getImageReference(){
+        return Actor.class.getResource("/Tiles/PlayerTile.png");
+        //return  imageReference;
+        }
 
 
 

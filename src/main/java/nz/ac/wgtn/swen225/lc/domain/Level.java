@@ -62,6 +62,22 @@ public class Level {
     }
 
     /**
+     * Gets the width of the map
+     * @return
+     */
+    public int getWidth(){
+        return width;
+    }
+
+    /**
+     * Gets the height of the map
+     * @return
+     */
+    public int getHeight(){
+        return height;
+    }
+
+    /**
      * Gets an array of all actors, npcs and larry
      * @return
      */

@@ -32,4 +32,8 @@ public class App {
         this.renderer = renderer;
         this.recorder = recorder;
     }
+
+    public void UpdateRenderer(){
+        renderer.updateRenderer();
+    }
 }

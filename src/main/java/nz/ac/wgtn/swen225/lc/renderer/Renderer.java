@@ -40,7 +40,7 @@ public class Renderer extends JPanel {
         initializeGameBoard();
         createStartingWindow();
 
-        setLayout(new GridLayout(11, 7, 1, 1));
+        setLayout(new GridLayout(11, 11, 1, 1));
         updateRenderer();
     }
 
@@ -78,11 +78,30 @@ public class Renderer extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
+
         // Calculate tile size based on the grid size
         int tileSize = Math.min(getWidth() / TileWidth, getHeight() / TileHeight);
 
-        for (int row = 0; row < 7; row++) {
+        for (int y = 0; y < level.getHeight(); y++) {
+            for (int x = 0; x < level.getWidth(); x++) {
+                Tile tile = tiles[x][y];  // Get the tile from data
+                if (tile != null) {
+                    // Load the tile image
+
+                    Image tileImage = loadImage(tile.getTileImageReference());
+
+                    if(tile.hasItem()) tileImage = loadImage(Renderer.class.getResource("/Tiles/KeyTile.png"));
+
+                    // Draw the tile image at the specified position
+                    g.drawImage(tileImage, x * tileSize, y * tileSize, tileSize, tileSize, null);
+                }
+            }
+        }
+        
+        g.drawImage(loadImage(player.getImageReference()), player.getPosition().getX() * tileSize, player.getPosition().getY() * tileSize, tileSize,tileSize,null);
+
+
+        /*for (int row = 0; row < 7; row++) {
             for (int col = 0; col < 11; col++) {
                 Tile tile = tiles[row][col];  // Get the tile from data
                 if (tile != null) {
@@ -94,8 +113,9 @@ public class Renderer extends JPanel {
                     g.drawImage(tileImage, col * tileSize, row * tileSize, tileSize, tileSize, null);
                 }
             }
-        }
+        }*/
     }
+
 
     private Image loadImage(URL imageUrl) {
         try {
