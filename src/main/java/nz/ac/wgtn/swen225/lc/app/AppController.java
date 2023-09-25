@@ -21,8 +21,8 @@ public class AppController implements KeyListener {
     public void keyPressed(KeyEvent e) {
         keyMap.entrySet()
                 .stream()
-                .filter(entry -> entry.getKey().specialKey.matches(e))
-                .filter(entry -> entry.getKey().key == null || entry.getKey().key.getKeyCode() == e.getKeyCode())
+                .filter(entry -> entry.getKey().getSpecialKey().matches(e))
+                .filter(entry -> entry.getKey().keyEventMatches(e))
                 .forEach(entry -> entry.getValue().run());
     }
 

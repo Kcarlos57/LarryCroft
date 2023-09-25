@@ -63,11 +63,29 @@ public class Shortcut {
         return this;
     }
 
+    /**
+     * Get the name of this shortcut.
+     *
+     * @return The name of this shortcut.
+     */
+
     public String getName() {
         return name;
     }
 
+    public SpecialKeys getSpecialKey() {
+        return specialKey;
+    }
 
+    /**
+     * Check if the given key event matches this shortcut.
+     *
+     * @param e The key event to check.
+     * @return
+     */
+    public boolean keyEventMatches(KeyEvent e) {
+        return specialKey.matches(e) && (key == null || key.getKeyCode() == e.getKeyCode());
+    }
 
     /**
      * Check if the given key event matches this shortcut.

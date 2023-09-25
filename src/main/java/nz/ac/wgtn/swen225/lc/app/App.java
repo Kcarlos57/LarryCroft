@@ -8,9 +8,6 @@ import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 import javax.swing.*;
 import java.awt.*;
 
-/*
-    Jonathan - This is here so I can setup links between the modules, look at Main in domain if you want to move it to Main in this package
- */
 public class App {
     private Domain domain;
     private Renderer renderer;
@@ -34,5 +31,10 @@ public class App {
         this.domain = domain;
         this.renderer = renderer;
         this.recorder = recorder;
+    }
+
+    public void setupShortCuts(){
+
+
     }
 }

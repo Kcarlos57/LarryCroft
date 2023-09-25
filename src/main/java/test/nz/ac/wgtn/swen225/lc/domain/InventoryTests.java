@@ -13,7 +13,7 @@ public class InventoryTests {
     public void addItemTest1() {
         Inventory inventory = new Inventory();
         Item a = new Key(Key.KeyColor.Red);
-        Item t = new Treasure();
+        Item t = (Item) new Treasure();
         Item n = null;
 
         inventory.addItem(a);
@@ -39,7 +39,7 @@ public class InventoryTests {
         Inventory inventory = new Inventory();
 
         Item a = new Key(Key.KeyColor.Red);
-        Item t = new Treasure();
+        Item t = (Item) new Treasure();
         Item n = null;
 
         inventory.addItemAtPosition(a,0);
@@ -103,7 +103,7 @@ public class InventoryTests {
         inventory.addItem(new Key(Key.KeyColor.Red));
         inventory.addItemAtPosition(new Key(Key.KeyColor.Red),5);
 
-        inventory.Clear();
+        //inventory.clear();
 
         assertThrows(IllegalStateException.class, () -> inventory.getItemAtPos(0));
         assertThrows(IllegalStateException.class, () -> inventory.getItemAtPos(5));
