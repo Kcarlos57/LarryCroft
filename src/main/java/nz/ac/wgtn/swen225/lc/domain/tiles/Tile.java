@@ -11,37 +11,17 @@ public interface Tile{
     public boolean isWalkable();
 
     /**
-     * Gets the image data of the tile
-     * @return
-     */
-    public URL getTileImageReference();
-
-    /**
      * Gets string representation of tile
      * @return
      */
     @Override
     public String toString();
 
-    Item currentItem = null;
     /**
-     * Checks if a tile has an item on it
+     * Gets the image data of the tile
      * @return
      */
-    public default boolean hasItem(){
-        return currentItem != null;
-    }
-
-    /**
-     * Gets the item in possession of a tile
-     * @return
-     */
-    public default Item getItem(){
-        if(!hasItem())throw new IllegalStateException("This Tile does not contain an Item");
-        if(currentItem==null)throw new IllegalStateException("Should not have got here, accessing null item");
-
-        return currentItem;
-    }
+    public URL getTileImageReference();
 
     /**
      * Gets the URL of the resource at the specifed path, handles errors
@@ -53,6 +33,30 @@ public interface Tile{
             return Tile_Wall.class.getResource(path);
         }catch (NullPointerException np) { throw new IllegalArgumentException("Specifed File Not Found"); }
     }
+
+    /**
+     * Checks if a tile has an item on it
+     * @return
+     */
+    public boolean hasItem();
+
+    /**
+     * Gets the item in possession of a tile
+     * @return
+     */
+    public Item getItem();
+
+    /**
+     * Sets the item on this tile
+     * @param item
+     */
+    public void SetItem(Item item);
+
+    /**
+     * Removes and returns the item on this tile
+     * @return
+     */
+    public Item RemoveItem();
 
 
 

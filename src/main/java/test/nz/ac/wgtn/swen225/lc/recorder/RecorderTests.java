@@ -1,6 +1,7 @@
 package test.nz.ac.wgtn.swen225.lc.recorder;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class RecorderTests {
     @Test
