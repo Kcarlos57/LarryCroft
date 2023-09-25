@@ -17,10 +17,16 @@ public class Tile_LockedDoor implements Tile{
     //Keeps Track of the type of key needed to open the door
     private Item requiredKey = null;
 
-    public void OpenDoor(Key key){
+    /**
+     * Tries to open the door with the given key, returns if it is open or not
+     * @param key
+     * @return
+     */
+    public boolean OpenDoor(Key key){
         if(requiredKey.equals(key)){
             doorOpen = true;
         }
+        return doorOpen;
     }
 
 
