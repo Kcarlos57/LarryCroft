@@ -14,7 +14,7 @@ public class Inventory {
         items = new Item[inventorySize];
     }
     private Item[] items;
-    private int inventorySize;
+    private int inventorySize = 8;
     private int numItems = 0;
 
 
@@ -96,7 +96,7 @@ public class Inventory {
      * @return
      */
     public boolean isFull(){
-        return numItems < inventorySize;
+        return numItems >= inventorySize;
     }
 
     /**
