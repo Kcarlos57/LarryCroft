@@ -45,24 +45,54 @@ public class Domain {
         //LoadLevel(defaultLevel);
         currentLevel = new Level("#######" +
                 "#OOTOO#" +
-                "#OOOLO#" +
                 "#OOOOO#" +
+                "#OOOOO#" +
+                "###X###" +
+                "#OOTOO#" +
+                "#OOOLO#" +
+                "#KOOOO#" +
                 "#OOOOO#" +
                 "#TOOOO#" +
-                "#######",7,7);
+                "#######",7,11);
 
         System.out.println(currentLevel.toString());
         TryMoveLarry(Direction.Up);
 
-        System.out.println(currentLevel.toString());
         TryMoveLarry(Direction.Up);
 
-        System.out.println(currentLevel.toString());
+        TryMoveLarry(Direction.Up);
         TryMoveLarry(Direction.Up);
 
         System.out.println(currentLevel.toString());
         TryMoveLarry(Direction.Left);
 
+        TryMoveLarry(Direction.Up);
+        System.out.println(currentLevel.toString());
+
+        TryMoveLarry(Direction.Left);
+
+        TryMoveLarry(Direction.Left);
+
+        TryMoveLarry(Direction.Down);
+        TryMoveLarry(Direction.Down);
+        TryMoveLarry(Direction.Down);
+
+
+        System.out.println(currentLevel.toString());
+
+        TryMoveLarry(Direction.Up);
+        TryMoveLarry(Direction.Up);
+        TryMoveLarry(Direction.Up);
+        TryMoveLarry(Direction.Up);
+        TryMoveLarry(Direction.Up);
+
+        System.out.println(currentLevel.toString());
+
+        TryMoveLarry(Direction.Right);
+        TryMoveLarry(Direction.Right);
+
+        TryMoveLarry(Direction.Up);
+        TryMoveLarry(Direction.Up);
         System.out.println(currentLevel.toString());
 
     }
