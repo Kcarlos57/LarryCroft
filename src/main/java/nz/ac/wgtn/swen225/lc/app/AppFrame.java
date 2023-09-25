@@ -94,7 +94,11 @@ UP, DOWN, LEFT, RIGHT ARROWS -- move Chap within the maze
                 new Shortcut("Start level 2")
                         .setKey(KeyEvent.VK_2)
                         .setSpecialKey(Shortcut.SpecialKeys.CTRL),
-                () -> controller.loadLevel(2)
+                () -> controller.loadLevel(2),
+                new Shortcut("Print recording")
+                        .setKey(KeyEvent.VK_R)
+                        .setSpecialKey(Shortcut.SpecialKeys.CTRL),
+                Recorder::printActions
         ));
     }
 
