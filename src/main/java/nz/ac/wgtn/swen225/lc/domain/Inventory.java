@@ -58,10 +58,7 @@ public class Inventory {
     public Item getItemAtPos(int pos){
         if(pos < 0 || pos >= inventorySize) throw new IllegalArgumentException("Specified inventory slot does not exist");
 
-        Item item = items[pos];
-        if(item == null) throw new IllegalStateException("Inventory slot is empty");
-
-        return item;
+        return items[pos];
     }
 
     /**
@@ -100,6 +97,15 @@ public class Inventory {
      */
     public boolean isFull(){
         return numItems < inventorySize;
+    }
+
+    /**
+     * Remove
+     */
+    public void RemoveItemAt(int pos){
+        if(pos < 0 || pos >= inventorySize) throw new IllegalArgumentException("Specified inventory slot does not exist");
+
+        items[pos] = null;
     }
 
 }
