@@ -97,7 +97,7 @@ public class Renderer extends JPanel {
                 }
             }
         }
-        
+
         g.drawImage(loadImage(player.getImageReference()), player.getPosition().getX() * tileSize, player.getPosition().getY() * tileSize, tileSize,tileSize,null);
 
 
