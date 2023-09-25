@@ -77,4 +77,11 @@ public class Inventory {
         throw new IllegalStateException("Cannot add item to Inventory, it is full");
        // return -1;
     }
+
+	public void clear() {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < inventorySize; i++) {
+	        items[i] = null;
+	    }
+	}
 }

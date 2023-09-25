@@ -2,19 +2,19 @@ package nz.ac.wgtn.swen225.lc.domain.tiles;
 
 import java.net.URL;
 
-public class Tile_Wall implements Tile{
+public class EmptyTile implements Tile{
     @Override
     public boolean isWalkable() {
-        return false;
+        return true;
     }
 
     @Override
     public URL getTileImageReference() {
-        return getResource("/Tiles/WallTile.png");
+        return getResource("/Tiles/EmptyTile.png");
     }
 
     @Override
     public String toString() {
-        return "#";
+        return "E";
     }
 }

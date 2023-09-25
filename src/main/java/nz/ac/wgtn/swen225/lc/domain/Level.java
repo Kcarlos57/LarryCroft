@@ -8,13 +8,14 @@ public class Level {
 
 
     //TODO Modify to take from persistency
-
+	
     /**
      * Creates a level from relevant data
      */
-    public Level(){
-
+    public Level(int stage){
+    	
     }
+    
     private Tile[][] tiles;
     private Actor larry;
     private Actor[] actors;

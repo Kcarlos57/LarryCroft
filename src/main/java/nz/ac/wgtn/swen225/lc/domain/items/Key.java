@@ -44,7 +44,6 @@ public class Key implements Item{
     }
 
 
-    @Override
     public boolean canGoInInventory() {
         return true;
     }

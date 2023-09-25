@@ -4,6 +4,9 @@ import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import java.net.URL;
 
 public interface Tile{
+
+    Item currentItem = null;
+    
     /**
      * Defines if actors are allowed to enter this tile
      * @return
@@ -23,7 +26,6 @@ public interface Tile{
     @Override
     public String toString();
 
-    Item currentItem = null;
     /**
      * Checks if a tile has an item on it
      * @return
@@ -50,11 +52,7 @@ public interface Tile{
      */
     public default URL getResource(String path){
         try{
-            return Tile_Wall.class.getResource(path);
+            return WallTile.class.getResource(path);
         }catch (NullPointerException np) { throw new IllegalArgumentException("Specifed File Not Found"); }
     }
-
-
-
-
 }

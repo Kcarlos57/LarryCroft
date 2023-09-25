@@ -103,7 +103,7 @@ public class InventoryTests {
         inventory.addItem(new Key(Key.KeyColor.Red));
         inventory.addItemAtPosition(new Key(Key.KeyColor.Red),5);
 
-        inventory.Clear();
+        inventory.clear();
 
         assertThrows(IllegalStateException.class, () -> inventory.getItemAtPos(0));
         assertThrows(IllegalStateException.class, () -> inventory.getItemAtPos(5));
