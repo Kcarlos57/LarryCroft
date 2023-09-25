@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 
 public class Shortcut {
     private SpecialKeys specialKey;
-    private KeyEvent key;
+    private int key;
 
     private String name;
 
@@ -38,7 +38,7 @@ public class Shortcut {
     public Shortcut(String name) {
         this.name = name;
         specialKey = SpecialKeys.NONE;
-        key = null;
+        key = -1;
     }
 
     /**
@@ -47,7 +47,7 @@ public class Shortcut {
      * @param e The key event to set.
      * @return This shortcut.
      */
-    public Shortcut setKey(KeyEvent e) {
+    public Shortcut setKey(int e) {
         key = e;
         return this;
     }
@@ -84,7 +84,7 @@ public class Shortcut {
      * @return
      */
     public boolean keyEventMatches(KeyEvent e) {
-        return specialKey.matches(e) && (key == null || key.getKeyCode() == e.getKeyCode());
+        return specialKey.matches(e) && (key == -1 || key == e.getKeyCode());
     }
 
     /**
@@ -94,6 +94,6 @@ public class Shortcut {
      * @return
      */
     public boolean matches(KeyEvent e) {
-        return specialKey.matches(e) && (key == null || key.getKeyCode() == e.getKeyCode());
+        return specialKey.matches(e) && (key == -1 || key == e.getKeyCode());
     }
 }

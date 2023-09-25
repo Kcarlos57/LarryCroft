@@ -1,7 +1,11 @@
 package nz.ac.wgtn.swen225.lc.app;
 
+import nz.ac.wgtn.swen225.lc.domain.Domain;
+import nz.ac.wgtn.swen225.lc.recorder.Recorder;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -9,9 +13,12 @@ import java.util.Map;
  */
 public class AppController implements KeyListener {
     private Map<Shortcut, Runnable> keyMap;
+    private static App app;
 
     public AppController(AppFrame appFrame, App app){
         appFrame.addKeyListener(this);
+        this.app = app;
+        this.keyMap = new HashMap<>();
     }
 
     @Override
@@ -29,7 +36,51 @@ public class AppController implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {}
 
-    public void setKeyMap(Map<Shortcut, Runnable> keyMap) {
-        this.keyMap = keyMap;
+    /**
+     * Adds a map of shortcuts to the keymap
+     *
+     * @param keyMap the map of shortcuts to add
+     */
+    public void addToKeyMap(Map<Shortcut, Runnable> keyMap) {
+        this.keyMap.putAll(keyMap);
+    }
+
+    public static void movePlayer(Domain.Direction direction) {
+        if (app == null) {
+            System.out.println("App is null");
+            return;
+        }
+
+        Recorder.addAction("Player moved " + direction);
+        app.domain.TryMoveLarry(direction);
+    }
+
+    /**
+     * Loads a level
+     *
+     * @param levelNum The level number to load
+     */
+    public void loadLevel(int levelNum) {
+        if (levelNum == -1) {
+            // Load from file
+            // TODO: implement
+            return;
+        }
+
+        //Recorder.addAction("Level " + i + " loaded"); TODO
+        System.out.println("Level " + levelNum + " loaded");
+        app.domain.LoadLevel(String.valueOf(levelNum));
+    }
+
+    public void saveCurrentLevel() {
+    }
+
+    public void quit() {
+    }
+
+    public void pause() {
+    }
+
+    public void resume() {
     }
 }

@@ -15,6 +15,4 @@ public class Renderer {
         this.domain = domain;
     }
 
-
-    public
 }

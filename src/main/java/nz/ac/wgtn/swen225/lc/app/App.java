@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class App {
-    private Domain domain;
+    protected Domain domain;
     private Renderer renderer;
     private Recorder recorder;
 
@@ -33,8 +33,5 @@ public class App {
         this.recorder = recorder;
     }
 
-    public void setupShortCuts(){
 
-
-    }
 }
