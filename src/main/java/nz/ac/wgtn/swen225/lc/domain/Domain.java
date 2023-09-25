@@ -9,8 +9,8 @@ import java.util.function.Supplier;
  */
 public class Domain {
     /*
-     *   public void TryMoveChap(Direction direction)  -   Handles attempting to move chap in the specified direction
-     *
+     *   public void TryMoveLarry(Direction direction)  -   Handles attempting to move chap in the specified direction
+     *   public Level GetCurrentLevel();
      *
      */
 
@@ -141,5 +141,14 @@ public class Domain {
         }catch (InvalidMovementException e) { System.out.println(e); }
 
 
+    }
+
+    /**
+     * Gets the current level
+     * @return
+     */
+    public Level GetCurrentLevel(){
+        if(currentLevel == null) throw new IllegalStateException("Level is null");
+        return currentLevel;
     }
 }

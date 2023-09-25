@@ -38,6 +38,36 @@ public class Level {
         return  larry;
     }
 
+    /**
+     * Gets all non larry actors
+     * @return
+     */
+    public Actor[] getNPCs(){
+        return actors;
+    }
+
+    /**
+     * Gets an array of all actors, npcs and larry
+     * @return
+     */
+    public Actor[] getAllActors(){
+        int aSize = 0;
+        if(getNPCs()==null){
+            aSize = 1;
+        } else {
+            aSize = getNPCs().length + 1;
+        }
+
+        Actor[] out = new Actor[aSize];
+        out[0] = getLarry();
+        if(aSize==1) return out;
+
+        for (int i = 0; i < getNPCs().length; i++){
+            out[i+1] = actors[i];
+        }
+        return out;
+    }
+
 
     /**
      * Causes all non-player actors to make a move
