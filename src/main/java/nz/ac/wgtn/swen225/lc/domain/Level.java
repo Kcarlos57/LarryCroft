@@ -68,8 +68,11 @@ public class Level {
      */
     public Actor[] getAllActors(){
         int aSize = 0;
-        if(actors==null) aSize = 1;
-        aSize = getNPCs().length + 1;
+        if(getNPCs()==null){
+            aSize = 1;
+        } else {
+            aSize = getNPCs().length + 1;
+        }
 
         Actor[] out = new Actor[aSize];
         out[0] = getLarry();
