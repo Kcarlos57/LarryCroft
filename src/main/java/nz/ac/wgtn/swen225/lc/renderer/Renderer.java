@@ -27,7 +27,7 @@ public class Renderer extends JPanel {
     char[][] exampleBoard = {
             {'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'},
             {'W', 'P', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-            {'W', 'E', 'W', 'E', 'W', 'E', 'X', 'X', 'W'},
+            {'W', 'E', 'W', 'E', 'W', 'E', 'X', 'E', 'W'},
             {'W', 'E', 'E', 'E', 'W', 'E', 'E', 'E', 'W'},
             {'W', 'E', 'W', 'E', 'W', 'W', 'W', 'E', 'W'},
             {'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
@@ -66,8 +66,9 @@ public class Renderer extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        int tileSize = Math.min(getWidth() / TileWidth, getHeight() / TileHeight);  // Calculate tile size based on the grid size
+        
+        // Calculate tile size based on the grid size
+        int tileSize = Math.min(getWidth() / TileWidth, getHeight() / TileHeight);
 
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
@@ -126,37 +127,59 @@ public class Renderer extends JPanel {
         }
     }
 
-	public void createStartingWindow() {
-        // Create a new JFrame for the game window
-        JFrame frame = new JFrame("Chip's Challenge");
-
-        // Set the default close operation (what happens when the user closes the window)
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Set the size of the window (adjust this to your desired dimensions)
-        frame.setSize(800, 600);
+    public void createStartingWindow() {
+        // Create the main JFrame
+        JFrame frame = createMainFrame();
         
-        // Create a main content panel that holds the game and sidebar
-        JPanel contentPanel = new JPanel(new BorderLayout());
-
-        // Create a sidebar panel with buttons
-        JPanel sidebar = createSidebar();
+        // Create the content panel with game board and sidebar
+        JPanel contentPanel = createContentPanel();
         
-        // Add your existing instance of Renderer to the content panel
-        contentPanel.add(this, BorderLayout.CENTER);
+        // Create and set the menu bar
+        JMenuBar menuBar = createMenuBar();
+        frame.setJMenuBar(menuBar);
         
-        // Add the sidebar to the content panel on the bottom
-        contentPanel.add(sidebar, BorderLayout.SOUTH);
-
         // Add the content panel to the JFrame
         frame.add(contentPanel);
+        
+        // Center and make the window visible
+        centerAndShowFrame(frame);
+    }
 
-        // Center the window on the screen
+    private JFrame createMainFrame() {
+        JFrame frame = new JFrame("Chip's Challenge");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 600);
+        return frame;
+    }
+
+    private JPanel createContentPanel() {
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        JPanel sidebar = createSidebar();
+        contentPanel.add(this, BorderLayout.CENTER);
+        contentPanel.add(sidebar, BorderLayout.SOUTH);
+        return contentPanel;
+    }
+
+    private JMenuBar createMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem newGameMenuItem = new JMenuItem("New Game");
+        newGameMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Handle new game menu item click
+                // You can start a new game or perform any other relevant actions here
+            }
+        });
+        fileMenu.add(newGameMenuItem);
+        menuBar.add(fileMenu);
+        return menuBar;
+    }
+
+    private void centerAndShowFrame(JFrame frame) {
         frame.setLocationRelativeTo(null);
-
-        // Make the window visible
         frame.setVisible(true);
     }
+
 
     private JPanel createSidebar() {
         JPanel sidebar = new JPanel();
@@ -178,6 +201,10 @@ public class Renderer extends JPanel {
         resetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Handle reset button click
+                int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the game?", "Reset Game", JOptionPane.YES_NO_OPTION);
+                if (confirmation == JOptionPane.YES_OPTION) {
+                    //resetGame(); // Implement the resetGame method to reset the game state
+                }
             }
         });
 
