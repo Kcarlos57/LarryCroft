@@ -5,13 +5,21 @@ import nz.ac.wgtn.swen225.lc.domain.Domain;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
-/*
-    Jonathan - This is here so I can setup links between the modules, look at Main in domain if you want to move it to Main in this package
- */
+import javax.swing.*;
+import java.awt.*;
+
 public class App {
-    private Domain domain;
+    protected Domain domain;
     private Renderer renderer;
     private Recorder recorder;
+
+    private JFrame frame;
+
+    public App(){
+        Dimension size = new Dimension(800,600);
+        frame = new AppFrame("Larry Crofts Adventures", this, size);
+        frame.setVisible(true);
+    }
 
     /**
      * Sets the references between modules
@@ -24,4 +32,6 @@ public class App {
         this.renderer = renderer;
         this.recorder = recorder;
     }
+
+
 }

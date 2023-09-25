@@ -1,6 +1,8 @@
 package nz.ac.wgtn.swen225.lc.domain.items;
 
 
+import nz.ac.wgtn.swen225.lc.domain.Position;
+
 /**
  * Implements the item 'Key' which can open locked doors of the same color
  */
@@ -41,6 +43,26 @@ public class Key implements Item{
 
         Key k = (Key) object;
         return k.getKeyColor() == color;
+    }
+
+    /**
+     * Gets if two keys are of teh same color
+     * @param other
+     * @return
+     */
+    @Override
+    public boolean equals(Object other){
+        //If same obj - true
+        if(this == other)
+            return true;
+
+        //If other not same class - false
+        if(!(other instanceof Key))
+            return false;
+
+        //If values are same - true otherwise false;
+        Key o = (Key) other;
+        return this.getKeyColor() == o.getKeyColor();
     }
 
 
