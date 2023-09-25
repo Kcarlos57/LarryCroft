@@ -86,7 +86,12 @@ public class Renderer extends JPanel {
 
     private Image loadImage(URL imageUrl) {
         try {
-            return ImageIO.read(imageUrl);
+            if (imageUrl != null) {
+                return ImageIO.read(imageUrl);
+            } else {
+                // Handle case where imageUrl is null
+                return null;
+            }
         } catch (IOException e) {
             e.printStackTrace();
             // Handle image loading error
@@ -127,22 +132,28 @@ public class Renderer extends JPanel {
         }
     }
 
-    public void createStartingWindow() {
+    private void createStartingWindow() {
         // Create the main JFrame
         JFrame frame = createMainFrame();
         
-        // Create the content panel with game board and sidebar
-        JPanel contentPanel = createContentPanel();
-        
-        // Create and set the menu bar
-        JMenuBar menuBar = createMenuBar();
-        frame.setJMenuBar(menuBar);
-        
-        // Add the content panel to the JFrame
-        frame.add(contentPanel);
-        
-        // Center and make the window visible
-        centerAndShowFrame(frame);
+        if (frame != null) {
+            // Create the content panel with game board and sidebar
+            JPanel contentPanel = createContentPanel();
+            
+            if (contentPanel != null) {
+                // Create and set the menu bar
+                JMenuBar menuBar = createMenuBar();
+                if (menuBar != null) {
+                    frame.setJMenuBar(menuBar);
+                }
+                
+                // Add the content panel to the JFrame
+                frame.add(contentPanel);
+                
+                // Center and make the window visible
+                centerAndShowFrame(frame);
+            }
+        }
     }
 
     private JFrame createMainFrame() {
