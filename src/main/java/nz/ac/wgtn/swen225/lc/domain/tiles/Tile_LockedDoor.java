@@ -37,8 +37,8 @@ public class Tile_LockedDoor implements Tile{
 
     @Override
     public URL getTileImageReference() {
-        String target = (doorOpen)? "ClosedDoor" : "OpenDoor";
-        return getResource("/Tiles/" + target + ".png");
+      //  String target = (doorOpen)? "ClosedDoor" : "OpenDoor";
+        return getResource("/Tiles/ExitTile.png");
     }
 
     @Override

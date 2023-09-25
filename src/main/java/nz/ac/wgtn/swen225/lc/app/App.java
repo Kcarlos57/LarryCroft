@@ -32,6 +32,4 @@ public class App {
         this.renderer = renderer;
         this.recorder = recorder;
     }
-
-
 }

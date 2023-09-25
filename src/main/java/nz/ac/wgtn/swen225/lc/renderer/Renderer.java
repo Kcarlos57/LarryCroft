@@ -23,46 +23,58 @@ public class Renderer extends JPanel {
     
     final int TileHeight = 9;
     final int TileWidth = 9;    
-    
-    char[][] exampleBoard = {
-            {'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'},
-            {'W', 'P', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-            {'W', 'E', 'W', 'E', 'W', 'E', 'X', 'E', 'W'},
-            {'W', 'E', 'E', 'E', 'W', 'E', 'E', 'E', 'W'},
-            {'W', 'E', 'W', 'E', 'W', 'W', 'W', 'E', 'W'},
-            {'W', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'W'},
-            {'W', 'E', 'W', 'W', 'W', 'W', 'W', 'E', 'W'},
-            {'W', 'E', 'E', 'E', 'E', 'E', 'E', 'K', 'W'},
-            {'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'}
-        };
-    
-    public Renderer() {//should pass Domain here
-    	initializeGameBoard();
-    	createStartingWindow();
-    	//getDomain(d);
-    	//getLevel();
-    	//getPlayer(); Uncomment these when Persistency and Levels are live.
-    	
-    	 // Set the layout manager to a 9x9 GridLayout
-        setLayout(new GridLayout(9, 9, 1, 1));
 
+    
+    public Renderer() {
+        // Jonathan - Because of circular dependancies constructor cannot get links to other modules
+
+    }
+
+    /**
+     * Initlizes the module
+     */
+    public void Setup(){
+        this.level = domain.getCurrentLevel();
+        this.player = level.getLarry();
+
+        initializeGameBoard();
+        createStartingWindow();
+
+        setLayout(new GridLayout(11, 7, 1, 1));
         updateRenderer();
     }
-/*
-    private void getDomain(Domain d) {
-    	if (d == null) {throw new IllegalStateException("Domain passed shouldn't be null.");}
-    	this.domain = d;
-    }    
-    private void getLevel() {
-    	if (domain == null) {throw new IllegalStateException("Domain stored shouldn't be null.");}
-    	this.level = domain.getCurrentLevel();
+
+    private void initializeGameBoard() {
+        // Create a 2D array of Tiles to represent the game board
+
+        tiles = level.getTiles();
     }
-    private void getPlayer() {
-    	if (level == null) {throw new IllegalStateException("Level shouldn't be null.");}
-    	this.player = level.getLarry();
+
+    private void createStartingWindow() {
+        // Create the main JFrame
+        JFrame frame = createMainFrame();
+
+        if (frame != null) {
+            // Create the content panel with game board and sidebar
+            JPanel contentPanel = createContentPanel();
+
+            if (contentPanel != null) {
+                // Create and set the menu bar
+                JMenuBar menuBar = createMenuBar();
+                if (menuBar != null) {
+                    frame.setJMenuBar(menuBar);
+                }
+
+                // Add the content panel to the JFrame
+                frame.add(contentPanel);
+
+                // Center and make the window visible
+                centerAndShowFrame(frame);
+            }
+        }
     }
-    */
-   
+
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -70,11 +82,12 @@ public class Renderer extends JPanel {
         // Calculate tile size based on the grid size
         int tileSize = Math.min(getWidth() / TileWidth, getHeight() / TileHeight);
 
-        for (int row = 0; row < 9; row++) {
-            for (int col = 0; col < 9; col++) {
+        for (int row = 0; row < 7; row++) {
+            for (int col = 0; col < 11; col++) {
                 Tile tile = tiles[row][col];  // Get the tile from data
                 if (tile != null) {
                     // Load the tile image
+
                     Image tileImage = loadImage(tile.getTileImageReference());
 
                     // Draw the tile image at the specified position
@@ -98,63 +111,7 @@ public class Renderer extends JPanel {
             return null;
         }
     }
-    
-    private void initializeGameBoard() {
-        // Create a 2D array of Tiles to represent the game board
 
-        tiles = new Tile[9][9];
-
-        // Fill the board with some sample tiles, pngs are currently temporary
-        for (int row = 0; row < 9; row++) {
-            for (int col = 0; col < 9; col++) {
-            	char tileType = exampleBoard[row][col];
-                switch (tileType) {
-                case 'W': // Wall Tile
-                    tiles[row][col] = new WallTile();
-                    break;
-                case 'X': // Exit Tile
-                    tiles[row][col] = new ExitTile();
-                    break;
-                case 'K': // Key Tile
-                    tiles[row][col] = new KeyTile();
-                    break;
-                case 'P': // Player Tile
-                    tiles[row][col] = new PlayerTile();
-                    break;
-                case 'E': //Empty Tile
-                	tiles[row][col] = new EmptyTile();
-                	break;
-                default:
-                	
-                    break;
-                    }
-            }
-        }
-    }
-
-    private void createStartingWindow() {
-        // Create the main JFrame
-        JFrame frame = createMainFrame();
-        
-        if (frame != null) {
-            // Create the content panel with game board and sidebar
-            JPanel contentPanel = createContentPanel();
-            
-            if (contentPanel != null) {
-                // Create and set the menu bar
-                JMenuBar menuBar = createMenuBar();
-                if (menuBar != null) {
-                    frame.setJMenuBar(menuBar);
-                }
-                
-                // Add the content panel to the JFrame
-                frame.add(contentPanel);
-                
-                // Center and make the window visible
-                centerAndShowFrame(frame);
-            }
-        }
-    }
 
     private JFrame createMainFrame() {
         JFrame frame = new JFrame("Chip's Challenge");

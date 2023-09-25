@@ -5,6 +5,7 @@ import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
+
 class Main{
     public static void main(String args[]){
         Domain domain = new Domain();
@@ -18,5 +19,9 @@ class Main{
         renderer.SetModuleLinks(domain);
         persistency.SetModuleLinks(domain);
         recorder.SetModuleLinks(persistency,app);
+
+
+        domain.Setup();
+        renderer.Setup();
     }
 }

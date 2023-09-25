@@ -55,46 +55,6 @@ public class Domain {
                 "#TOOOO#" +
                 "#######",7,11);
 
-        System.out.println(currentLevel.toString());
-        TryMoveLarry(Direction.Up);
-
-        TryMoveLarry(Direction.Up);
-
-        TryMoveLarry(Direction.Up);
-        TryMoveLarry(Direction.Up);
-
-        System.out.println(currentLevel.toString());
-        TryMoveLarry(Direction.Left);
-
-        TryMoveLarry(Direction.Up);
-        System.out.println(currentLevel.toString());
-
-        TryMoveLarry(Direction.Left);
-
-        TryMoveLarry(Direction.Left);
-
-        TryMoveLarry(Direction.Down);
-        TryMoveLarry(Direction.Down);
-        TryMoveLarry(Direction.Down);
-
-
-        System.out.println(currentLevel.toString());
-
-        TryMoveLarry(Direction.Up);
-        TryMoveLarry(Direction.Up);
-        TryMoveLarry(Direction.Up);
-        TryMoveLarry(Direction.Up);
-        TryMoveLarry(Direction.Up);
-
-        System.out.println(currentLevel.toString());
-
-        TryMoveLarry(Direction.Right);
-        TryMoveLarry(Direction.Right);
-
-        TryMoveLarry(Direction.Up);
-        TryMoveLarry(Direction.Up);
-        System.out.println(currentLevel.toString());
-
     }
 
     /**
@@ -138,6 +98,7 @@ public class Domain {
         if(currentLevel == null) throw new IllegalStateException("Cannot move larry, level is not loaded");
         try {
             currentLevel.MoveLarry(direction);
+            System.out.println(currentLevel.toString());
         }catch (InvalidMovementException e) { System.out.println(e); }
 
 

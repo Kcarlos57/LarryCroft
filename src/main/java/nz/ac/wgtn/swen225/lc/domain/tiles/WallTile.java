@@ -17,7 +17,7 @@ public class WallTile implements Tile{
 
     @Override
     public String toString() {
-        return "W";
+        return "0";
     }
 
     @Override

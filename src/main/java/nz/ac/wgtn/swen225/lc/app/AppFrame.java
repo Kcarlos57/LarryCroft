@@ -1,6 +1,8 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.domain.Domain;
+import nz.ac.wgtn.swen225.lc.recorder.Recorder;
+import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 import javax.swing.*;
 import java.awt.*;

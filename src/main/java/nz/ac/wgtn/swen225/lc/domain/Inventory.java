@@ -13,8 +13,9 @@ public class Inventory {
         inventorySize = 8;
         items = new Item[inventorySize];
     }
-    Item[] items;
-    int inventorySize;
+    private Item[] items;
+    private int inventorySize = 8;
+    private int numItems = 0;
 
 
     /**
@@ -23,9 +24,12 @@ public class Inventory {
      */
     public void addItem(Item item){
         if(item==null) throw new IllegalArgumentException("Given item is null");
+        if(!item.canGoInInventory()) throw new IllegalStateException("This item cannot be put into the inventory");
+
 
         int pos = getFirstEmptySlot();
         items[pos] = item;
+        numItems++;
 
 
     }
@@ -37,10 +41,13 @@ public class Inventory {
      */
     public void addItemAtPosition(Item item, int position){
         if(item==null) throw new IllegalArgumentException("Given item is null");
-        if(position < 0 || position > inventorySize) throw new IllegalArgumentException("Specified inventory slot does not exist");
+        if(!item.canGoInInventory()) throw new IllegalStateException("This item cannot be put into the inventory");
+
+        if(position < 0 || position >= inventorySize) throw new IllegalArgumentException("Specified inventory slot does not exist");
 
         if(items[position]!=null) throw new IllegalStateException("Inventory slot is taken");
         items[position] = item;
+        numItems++;
     }
 
     /**
@@ -49,12 +56,9 @@ public class Inventory {
      * @return
      */
     public Item getItemAtPos(int pos){
-        if(pos < 0 || pos > inventorySize) throw new IllegalArgumentException("Specified inventory slot does not exist");
+        if(pos < 0 || pos >= inventorySize) throw new IllegalArgumentException("Specified inventory slot does not exist");
 
-        Item item = items[pos];
-        if(item == null) throw new IllegalStateException("Inventory slot is empty");
-
-        return item;
+        return items[pos];
     }
 
     /**
@@ -65,6 +69,15 @@ public class Inventory {
         return  inventorySize;
     }
 
+    /**
+     * Clears all items in the inventory
+     */
+    public void clear(){
+        for(int i = 0; i < getInventorySize();i++){
+            items[i] = null;
+        }
+        numItems = 0;
+    }
 
     /**
      * Gets the first empty available slot in the inventory
@@ -75,13 +88,24 @@ public class Inventory {
             if(items[i]==null)return i;
         }
         throw new IllegalStateException("Cannot add item to Inventory, it is full");
-       // return -1;
+        // return -1;
     }
 
-	public void clear() {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < inventorySize; i++) {
-	        items[i] = null;
-	    }
-	}
+    /**
+     * Returns if the inventory is full
+     * @return
+     */
+    public boolean isFull(){
+        return numItems >= inventorySize;
+    }
+
+    /**
+     * Remove
+     */
+    public void RemoveItemAt(int pos){
+        if(pos < 0 || pos >= inventorySize) throw new IllegalArgumentException("Specified inventory slot does not exist");
+
+        items[pos] = null;
+    }
+
 }
