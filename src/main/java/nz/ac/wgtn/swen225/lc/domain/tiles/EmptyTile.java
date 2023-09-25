@@ -4,7 +4,7 @@ import nz.ac.wgtn.swen225.lc.domain.items.Item;
 
 import java.net.URL;
 
-public class Tile_Empty implements Tile{
+public class EmptyTile implements Tile{
     @Override
     public boolean isWalkable() {
         return true;
@@ -17,7 +17,7 @@ public class Tile_Empty implements Tile{
 
     @Override
     public String toString() {
-        return "_";
+        return "E";
     }
 
 

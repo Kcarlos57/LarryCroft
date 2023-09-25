@@ -1,6 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
-import nz.ac.wgtn.swen225.lc.domain.tiles.Tile_Wall;
+import nz.ac.wgtn.swen225.lc.domain.tiles.WallTile;
 
 import java.net.URL;
 
@@ -25,7 +25,7 @@ public class Actor{
         this.directionFacing = directionFacing;
 
         try{
-            this.imageReference = Tile_Wall.class.getResource(path);
+            this.imageReference = WallTile.class.getResource(path);
         }catch (NullPointerException np) { throw new RuntimeException("Could not find given path for actor"); }
 
     }
