@@ -1,8 +1,10 @@
 package nz.ac.wgtn.swen225.lc.domain;
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
+import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.items.Treasure;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile_Empty;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Tile_LockedDoor;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile_Wall;
 
 /**
@@ -66,6 +68,8 @@ public class Level {
             case Left -> checkPos.setX(checkPos.getX()-1);
             case Right -> checkPos.setX(checkPos.getX()+1);
         }
+
+        TryUseKeyOnDoor(checkPos);
         if (CheckValidMoveTile(checkPos)){
             larry.Move(direction);
 
@@ -80,10 +84,32 @@ public class Level {
 
     }
 
+    private void TryUseKeyOnDoor(Position doorPos){
+        if(!CheckPositionExists(doorPos))return;
+
+        if(tiles[doorPos.getX()][doorPos.getY()].isWalkable()) return;
+        if(! (tiles[doorPos.getX()][doorPos.getY()] instanceof Tile_LockedDoor)) return;
+
+        Tile_LockedDoor door = (Tile_LockedDoor) tiles[doorPos.getX()][doorPos.getY()];
+
+        for(int i = 0; i < inventory.getInventorySize(); i++){
+            if(inventory.getItemAtPos(i) instanceof Key){
+
+                if(door.OpenDoor( (Key)inventory.getItemAtPos(i) )){
+                    //Door Opens
+                    inventory.RemoveItemAt(i);
+                    return;
+                }
+            }
+        }
+
+    }
+
     private void PickupItem(){
         if(tiles[larry.getPosition().getX()][larry.getPosition().getY()].getItem().canGoInInventory()){
             if (!inventory.isFull()) {
                 inventory.addItem(tiles[larry.getPosition().getX()][larry.getPosition().getY()].RemoveItem());
+                System.out.println("Item put into Inventory");
             }
         }else {
             Item item = tiles[larry.getPosition().getX()][larry.getPosition().getY()].RemoveItem();
@@ -156,6 +182,18 @@ public class Level {
                         levelTreasure++;
                         tiles[x][y] = t;
                         break;
+                    case 'K' :
+                        Tile a = new Tile_Empty();
+                        Key k = new Key(Key.KeyColor.Red);
+                        a.SetItem(k);
+
+                        tiles[x][y] = a;
+                        break;
+
+                    case 'X' :
+                        Tile d = new Tile_LockedDoor(new Key(Key.KeyColor.Red));
+                        tiles[x][y] = d;
+                        break;
                     default:
                         tiles[x][y] = new Tile_Empty();
                         break;
@@ -173,7 +211,11 @@ public class Level {
                 if(larry.getPosition().getX()==i && larry.getPosition().getY()==j){
                     stringBuilder.append('L');
                 }else if (tiles[i][j].hasItem()){
-                    stringBuilder.append('T');
+                    if(tiles[i][j].getItem() instanceof Key) {
+                        stringBuilder.append('K');
+                    }else{
+                        stringBuilder.append('T');
+                    }
 
                 }else{
                     stringBuilder.append(tiles[i][j].toString());
