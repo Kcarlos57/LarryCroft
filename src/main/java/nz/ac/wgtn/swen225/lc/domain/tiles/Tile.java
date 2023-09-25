@@ -4,11 +4,20 @@ import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import java.net.URL;
 
 public interface Tile{
+
+    Item currentItem = null;
+    
     /**
      * Defines if actors are allowed to enter this tile
      * @return
      */
     public boolean isWalkable();
+
+    /**
+     * Gets the image data of the tile
+     * @return
+     */
+    public URL getTileImageReference();
 
     /**
      * Gets string representation of tile
@@ -18,10 +27,23 @@ public interface Tile{
     public String toString();
 
     /**
-     * Gets the image data of the tile
+     * Checks if a tile has an item on it
      * @return
      */
-    public URL getTileImageReference();
+    public default boolean hasItem(){
+        return currentItem != null;
+    }
+
+    /**
+     * Gets the item in possession of a tile
+     * @return
+     */
+    public default Item getItem(){
+        if(!hasItem())throw new IllegalStateException("This Tile does not contain an Item");
+        if(currentItem==null)throw new IllegalStateException("Should not have got here, accessing null item");
+
+        return currentItem;
+    }
 
     /**
      * Gets the URL of the resource at the specifed path, handles errors
@@ -30,35 +52,7 @@ public interface Tile{
      */
     public default URL getResource(String path){
         try{
-            return Tile_Wall.class.getResource(path);
+            return WallTile.class.getResource(path);
         }catch (NullPointerException np) { throw new IllegalArgumentException("Specifed File Not Found"); }
     }
-
-    /**
-     * Checks if a tile has an item on it
-     * @return
-     */
-    public boolean hasItem();
-
-    /**
-     * Gets the item in possession of a tile
-     * @return
-     */
-    public Item getItem();
-
-    /**
-     * Sets the item on this tile
-     * @param item
-     */
-    public void SetItem(Item item);
-
-    /**
-     * Removes and returns the item on this tile
-     * @return
-     */
-    public Item RemoveItem();
-
-
-
-
 }

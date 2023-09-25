@@ -4,7 +4,7 @@ import nz.ac.wgtn.swen225.lc.domain.items.Item;
 
 import java.net.URL;
 
-public class Tile_Wall implements Tile{
+public class WallTile implements Tile{
     @Override
     public boolean isWalkable() {
         return false;
@@ -17,7 +17,7 @@ public class Tile_Wall implements Tile{
 
     @Override
     public String toString() {
-        return "#";
+        return "W";
     }
 
     @Override
