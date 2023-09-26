@@ -83,6 +83,8 @@ public class Renderer extends JPanel {
         // Calculate tile size based on the grid size
         int tileSize = Math.min(getWidth() / TileWidth, getHeight() / TileHeight);
 
+        if(level==null) return;
+
         for (int y = 0; y < level.getHeight(); y++) {
             for (int x = 0; x < level.getWidth(); x++) {
                 Tile tile = tiles[x][y];  // Get the tile from data
