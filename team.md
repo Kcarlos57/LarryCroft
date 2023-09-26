@@ -8,15 +8,12 @@ Persistency: Hyewon
 Recorder: chambenath
 ```
 
-```
 |Module|Team Member Name|Team Member gitlab account|
 |Domain|Jonathan Strongman|strongjona|
 |App|Hamish Burke|burkehami|
 |Renderer|Khalel Ichan Carlos|carloskhal|
 |Persistency|Hyewon Kim|kimhyew2|
 |Recorder|Nathan Chamberlain|chambenath|
-
-```
 
 
 ## Description
