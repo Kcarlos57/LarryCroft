@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import nz.ac.wgtn.swen225.lc.app.App;
+import nz.ac.wgtn.swen225.lc.app.AppController;
 import nz.ac.wgtn.swen225.lc.app.AppFrame;
 import nz.ac.wgtn.swen225.lc.domain.*;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
@@ -171,24 +172,16 @@ public class Renderer extends JPanel {
         sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.X_AXIS));
 
         // Create buttons for the sidebar
-        JButton menuButton = new JButton("Menu");
         JButton resetButton = new JButton("Reset");
         JButton soundButton = new JButton("Sound");
         // Add more buttons as needed
-
-        // Add action listeners to the buttons
-        menuButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Handle menu button click
-            }
-        });
 
         resetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Handle reset button click
                 int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the game?", "Reset Game", JOptionPane.YES_NO_OPTION);
                 if (confirmation == JOptionPane.YES_OPTION) {
-                    //resetGame(); // Implement the resetGame method to reset the game state
+
                 }
             }
         });
@@ -200,7 +193,6 @@ public class Renderer extends JPanel {
         });
 
         // Add buttons to the sidebar
-        sidebar.add(menuButton);
         sidebar.add(resetButton);
         sidebar.add(soundButton);
         // Add more buttons as needed
