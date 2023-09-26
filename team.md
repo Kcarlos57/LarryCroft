@@ -9,6 +9,7 @@ Recorder: chambenath
 ```
 
 |Module|Team Member Name|Team Member gitlab account|
+|---|---|---|
 |Domain|Jonathan Strongman|strongjona|
 |App|Hamish Burke|burkehami|
 |Renderer|Khalel Ichan Carlos|carloskhal|
