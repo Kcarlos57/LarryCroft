@@ -1,9 +1,6 @@
 package nz.ac.wgtn.swen225.lc.renderer;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -12,6 +9,8 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import nz.ac.wgtn.swen225.lc.app.App;
+import nz.ac.wgtn.swen225.lc.app.AppFrame;
 import nz.ac.wgtn.swen225.lc.domain.*;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 
@@ -33,7 +32,7 @@ public class Renderer extends JPanel {
     /**
      * Initlizes the module
      */
-    public void Setup(){
+    public JPanel Setup(){
         this.level = domain.getCurrentLevel();
         this.player = level.getLarry();
 
@@ -42,6 +41,7 @@ public class Renderer extends JPanel {
 
         setLayout(new GridLayout(11, 11, 1, 1));
         updateRenderer();
+        return this;
     }
 
     private void initializeGameBoard() {
@@ -134,10 +134,7 @@ public class Renderer extends JPanel {
 
 
     private JFrame createMainFrame() {
-        JFrame frame = new JFrame("Chip's Challenge");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        return frame;
+        return App.getFrame();
     }
 
     private JPanel createContentPanel() {

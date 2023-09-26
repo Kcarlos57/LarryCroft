@@ -13,7 +13,7 @@ public class App {
     private Renderer renderer;
     private Recorder recorder;
 
-    private JFrame frame;
+    private static AppFrame frame;
 
     public App(){
         Dimension size = new Dimension(800,600);
@@ -31,8 +31,13 @@ public class App {
         this.domain = domain;
         this.renderer = renderer;
         this.recorder = recorder;
+
+        frame.add(renderer);
     }
 
+    public static JFrame getFrame(){
+        return frame;
+    }
     public void UpdateRenderer(){
         renderer.updateRenderer();
     }
