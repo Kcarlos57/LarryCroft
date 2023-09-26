@@ -21,8 +21,8 @@ public class Renderer extends JPanel {
     private Tile[][] tiles;
     private Actor player;
     
-    final int TileHeight = 9;
-    final int TileWidth = 9;    
+    final int TileHeight = 11;
+    final int TileWidth = 11;    
 
     
     public Renderer() {
@@ -40,7 +40,7 @@ public class Renderer extends JPanel {
         initializeGameBoard();
         createStartingWindow();
 
-        setLayout(new GridLayout(11, 11, 1, 1));
+        setLayout(new GridLayout(TileHeight, TileWidth, 1, 1));
         updateRenderer();
         return this;
     }
