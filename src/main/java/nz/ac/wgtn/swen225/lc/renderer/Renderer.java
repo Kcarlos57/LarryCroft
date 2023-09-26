@@ -153,9 +153,27 @@ public class Renderer extends JPanel {
         newGameMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Handle new game menu item click
-                // You can start a new game or perform any other relevant actions here
+            	int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to begin again?", "Back to Level 1.", JOptionPane.YES_NO_OPTION);
+                if (confirmation == JOptionPane.YES_OPTION) {
+                	String message = "TODO: This should put you back in Level 1, if not the start menu.";
+                    showMessageDialog("New Game", message);
+                }
             }
         });
+        JMenuItem AboutItem = new JMenuItem("About");
+        AboutItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String message = "Project by: TEAM 27 A.K.A Team Epic Saucy Swaglords.\n"
+        				+ "Domain: Strongjona\n"
+        				+ "App: burkehami\n"
+        				+ "Renderer: carloskhal\n"
+        				+ "Persistency: Hyewon\n"
+        				+ "Recorder: chambenath\n\n\n"
+        				+ "Description: This is a GUI adventure game where the player is Larry Croft, a treasure hunter. \nThe player will be able to move around the map, collect items, and interact with the environment. The player will be able to save and load their progress.";
+                showMessageDialog("New Game", message);
+        	}
+        });
+        fileMenu.add(AboutItem);
         fileMenu.add(newGameMenuItem);
         menuBar.add(fileMenu);
         return menuBar;
@@ -179,9 +197,10 @@ public class Renderer extends JPanel {
         resetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Handle reset button click
-                int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the game?", "Reset Game", JOptionPane.YES_NO_OPTION);
+                int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the game?", "Reset Level", JOptionPane.YES_NO_OPTION);
                 if (confirmation == JOptionPane.YES_OPTION) {
-
+                	String message = "TODO: Have to implement ResetLevel(), reset the specific level.";
+                    showMessageDialog("Reset", message);
                 }
             }
         });
@@ -189,6 +208,8 @@ public class Renderer extends JPanel {
         soundButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Handle sound button click
+            	String message = "TODO: The sound button is used to control game sound settings. Will probably have a slider + ON/OFF";
+                showMessageDialog("Sound", message);
             }
         });
 
@@ -198,6 +219,11 @@ public class Renderer extends JPanel {
         // Add more buttons as needed
 
         return sidebar;
+    }
+    
+    // Helper method to show a message dialog
+    private void showMessageDialog(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void setTiles(Tile[][] tiles) {
