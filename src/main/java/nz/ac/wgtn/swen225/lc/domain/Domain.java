@@ -41,20 +41,8 @@ public class Domain {
 
         //TODO Cannot impement properly until the format of the persistency class is created, temp for now so I can keep working
 
-       // String defaultLevel = "Level1";
-        //LoadLevel(defaultLevel);
-        currentLevel = new Level("#######" +
-                "#OOTOO#" +
-                "#OOOOO#" +
-                "#OOOOO#" +
-                "###X###" +
-                "#OOTOO#" +
-                "#OOOLO#" +
-                "#KOOOO#" +
-                "#OOOOO#" +
-                "#TOOOO#" +
-                "#######",7,11);
-
+        String level1 = Persistency.getLevel(1);
+        currentLevel = new Level(level1,7,11);
     }
 
     /**
@@ -100,8 +88,6 @@ public class Domain {
             currentLevel.MoveLarry(direction);
             System.out.println(currentLevel.toString());
         }catch (InvalidMovementException e) { System.out.println(e); }
-
-
     }
 
     /**

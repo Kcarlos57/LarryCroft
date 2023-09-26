@@ -74,14 +74,18 @@ public class AppController implements KeyListener {
     }
 
     public void saveCurrentLevel() {
+        Recorder.addAction("Level saved");
     }
 
     public void quit() {
+        System.out.println("Quitting");
     }
 
     public void pause() {
+        System.out.println("Pausing");
     }
 
     public void resume() {
+        System.out.println("Resuming");
     }
 }
