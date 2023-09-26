@@ -1,13 +1,5 @@
 # Larry Crofts Adventures
 
-```
-Domain: strongjona
-App: burkehami
-Renderer: carloskhal
-Persistency: Hyewon
-Recorder: chambenath
-```
-
 |Module|Team Member Name|Team Member gitlab account|
 |---|---|---|
 |Domain|Jonathan Strongman|strongjona|
