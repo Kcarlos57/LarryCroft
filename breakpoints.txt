@@ -1,0 +1,13 @@
+app/AppController.java
+	48 movePlayer()
+		54 Recorder.addAction(“Player moved “ + direction);
+		55 app.domain.TryMoveLarry()
+		56 app.UpdateRenderer()
+
+
+renderer/Renderer.java 
+    35 Setup()
+        36 thus.level = domain.getCurrentLevel()
+        37 this.player = level.getLarry();
+	47 initializeGameBoard()
+		50 tiles = level.getTiles()
