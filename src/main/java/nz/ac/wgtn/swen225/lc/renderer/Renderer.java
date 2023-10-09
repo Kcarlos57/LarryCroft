@@ -93,7 +93,7 @@ public class Renderer extends JPanel {
 
                     Image tileImage = loadImage(tile.getTileImageReference());
 
-                    if(tile.hasItem()) tileImage = loadImage(Renderer.class.getResource("/Tiles/KeyTile.png"));
+                    if(tile.hasItem()) tileImage = loadImage(tile.getItem().getTileImageReference());
 
                     // Draw the tile image at the specified position
                     g.drawImage(tileImage, x * tileSize, y * tileSize, tileSize, tileSize, null);
