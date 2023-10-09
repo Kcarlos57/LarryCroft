@@ -3,6 +3,8 @@ package nz.ac.wgtn.swen225.lc.domain.items;
 
 import nz.ac.wgtn.swen225.lc.domain.Position;
 
+import java.net.URL;
+
 /**
  * Implements the item 'Key' which can open locked doors of the same color
  */
@@ -69,4 +71,13 @@ public class Key implements Item{
     public boolean canGoInInventory() {
         return true;
     }
+    @Override
+    public URL getTileImageReference() {
+        switch (keyColor){
+            case Blue -> {return getResource("/Tiles/BlueKeyItem.png");}
+            case Red -> {return getResource("/Tiles/RedKeyItem.png");}
+        }
+        return getResource("/Tiles/RedKeyItem.png");
+    }
+
 }
