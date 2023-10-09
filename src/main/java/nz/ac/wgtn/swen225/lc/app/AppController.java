@@ -70,7 +70,7 @@ public class AppController implements KeyListener {
 
         //Recorder.addAction("Level " + i + " loaded"); TODO
         System.out.println("Level " + levelNum + " loaded");
-        app.domain.LoadLevel(String.valueOf(levelNum));
+        app.domain.LoadLevel(levelNum);
     }
 
     public void saveCurrentLevel() {

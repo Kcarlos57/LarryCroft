@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  */
 public class Domain {
     /*
-     *   public void TryMoveLarry(Direction direction)  -   Handles attempting to move chap in the specified direction
+     *   public void TryMoveLarry(Direction)  -   Handles attempting to move chap in the specified direction
      *   public Level GetCurrentLevel();
      *
      */
@@ -34,12 +34,12 @@ public class Domain {
     }
 
     /**
-     * Handles Setting up the domain class variables, SetModuleLinksShould be called before this or it will fail
+     * Handles Setting up the domain class variables, SetModuleLinksShould be called before this, or it will fail
      */
     public void Setup(){
         if(persistency==null) throw new IllegalStateException("Domain cannot access Persistency class");
 
-        //TODO Cannot impement properly until the format of the persistency class is created, temp for now so I can keep working
+        //TODO Cannot implement properly until the, format of the persistence class is created, temp for now so I can keep working
 
         String level1 = Persistency.getLevel(1);
         currentLevel = new Level(level1,7,11);
@@ -47,13 +47,10 @@ public class Domain {
 
     /**
      * Loads a new Level into the Domain, removes all traces of prevoiusly loaded level if any, call SaveLevel first if you want to save previous
-     * @param levelName //TODO do not know what final format is for this, guessing string though
+     * @param levelNum //TODO do not know what final format is for this, guessing string though
      */
-    public void LoadLevel(String levelName){
-        //TODO Needs Persistency
-
-        //Level newLevel = ConvertToLevel(persistency.LoadLevel(levelName)); //Need to do sometinh here
-        Level newLevel = null;
+    public void LoadLevel(int levelNum){
+        Level newLevel = new Level(Persistency.getLevel(levelNum),7,11);
 
         if(newLevel == null) throw new IllegalStateException("The level being loaded is null");
         currentLevel = newLevel;
