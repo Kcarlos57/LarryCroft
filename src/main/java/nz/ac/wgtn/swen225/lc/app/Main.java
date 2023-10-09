@@ -7,6 +7,12 @@ import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 
 class Main{
+
+    /**
+     * Entry point to the game
+     *
+     * @param args
+     */
     public static void main(String args[]){
         Domain domain = new Domain();
         App app = new App();

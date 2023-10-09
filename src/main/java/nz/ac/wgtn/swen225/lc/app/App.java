@@ -15,6 +15,9 @@ public class App {
 
     private static AppFrame frame;
 
+    /**
+     * Create and setup the App JFrame
+     */
     public App(){
         Dimension size = new Dimension(800,600);
         frame = new AppFrame("Larry Crofts Adventures", this, size);
@@ -35,9 +38,18 @@ public class App {
         frame.add(renderer);
     }
 
-    public static JFrame getFrame(){
+    /**
+     * Return the Jframe window
+     *
+     * @return
+     */
+    public static AppFrame getFrame(){
         return frame;
     }
+
+    /**
+     * Update and refresh the game panel
+     */
     public void UpdateRenderer(){
         renderer.updateRenderer();
     }

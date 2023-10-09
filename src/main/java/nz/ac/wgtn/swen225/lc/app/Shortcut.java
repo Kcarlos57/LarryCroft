@@ -2,6 +2,11 @@ package nz.ac.wgtn.swen225.lc.app;
 
 import java.awt.event.KeyEvent;
 
+/**
+ * Shortcut
+ *
+ *
+ */
 public class Shortcut {
     private SpecialKeys specialKey;
     private int key;
@@ -14,6 +19,12 @@ public class Shortcut {
         SHIFT,
         NONE;
 
+        /**
+         * Checks if the keyevent has any special keys pressed
+         *
+         * @param e Keyevent just pressed
+         * @return
+         */
         public boolean matches(KeyEvent e) {
             switch (this) {
                 case CTRL:
