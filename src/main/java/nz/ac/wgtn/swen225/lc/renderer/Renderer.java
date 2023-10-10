@@ -27,12 +27,7 @@ public class Renderer extends JPanel {
     
     private boolean isLightMode = true;//boolean flag to track the current mode (light or dark)
     private boolean isSoundPlaying = false;
-    private String[] soundtracks = {"/music/Itty Bitty 8 Bit.wav", 
-    		"/music/Density.wav",
-    		"/music/8bit Dungeon Level.wav",
-    		"/music/Monplaisir.wav",
-    		"/music/Up In My Jam.wav",
-    		"/music/Vibe Mountain.wav"};
+    private String[] soundtracks = {"/music/Itty Bitty 8 Bit.wav", "/music/8bit Dungeon Level.wav"};
     private int currentSoundtrackIndex = 0;
 	private Thread soundThread;
     
