@@ -24,6 +24,12 @@ public class AppController implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {}
 
+    /**
+     * Run the Runnable associated with the pressed shortcut.
+     * Checks against all the shortcuts in keyMap
+     *
+     * @param e The keyevent just pressed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         keyMap.entrySet()
@@ -45,6 +51,12 @@ public class AppController implements KeyListener {
         this.keyMap.putAll(keyMap);
     }
 
+
+    /**
+     * Try move larry, and record the action
+     *
+     * @param direction Direction to move larry in
+     */
     public static void movePlayer(Domain.Direction direction) {
         if (app == null) {
             System.out.println("App is null");
@@ -70,21 +82,33 @@ public class AppController implements KeyListener {
 
         //Recorder.addAction("Level " + i + " loaded"); TODO
         System.out.println("Level " + levelNum + " loaded");
-        app.domain.LoadLevel(String.valueOf(levelNum));
+        app.domain.LoadLevel(levelNum);
     }
 
+    /**
+     * Save the current state of the level
+     */
     public void saveCurrentLevel() {
         Recorder.addAction("Level saved");
     }
 
+    /**
+     * Quit the game safely
+     */
     public void quit() {
         System.out.println("Quitting");
     }
 
+    /**
+     * Save the current game state and pause
+     */
     public void pause() {
         System.out.println("Pausing");
     }
 
+    /**
+     * Get the saved game state and unpause
+     */
     public void resume() {
         System.out.println("Resuming");
     }
