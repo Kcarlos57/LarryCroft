@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import javax.swing.*;
 
 import nz.ac.wgtn.swen225.lc.app.App;
@@ -23,13 +24,23 @@ public class Renderer extends JPanel {
     
     final int TileHeight = 11;
     final int TileWidth = 11;    
-
+    
+    private boolean isLightMode = true;//boolean flag to track the current mode (light or dark)
+    private boolean isSoundPlaying = false;
+    private String[] soundtracks = {"/music/Itty Bitty 8 Bit.wav", 
+    		"/music/Density.wav",
+    		"/music/8bit Dungeon Level.wav",
+    		"/music/Monplaisir.wav",
+    		"/music/Up In My Jam.wav",
+    		"/music/Vibe Mountain.wav"};
+    private int currentSoundtrackIndex = 0;
+	private Thread soundThread;
     
     public Renderer() {
         // Jonathan - Because of circular dependancies constructor cannot get links to other modules
 
     }
-
+ 
     /**
      * Initlizes the module
      */
@@ -39,6 +50,7 @@ public class Renderer extends JPanel {
 
         initializeGameBoard();
         createStartingWindow();
+        startSoundtrack(soundtracks[currentSoundtrackIndex]);
 
         setLayout(new GridLayout(TileHeight, TileWidth, 1, 1));
         updateRenderer();
@@ -79,11 +91,18 @@ public class Renderer extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+        
+        // Set the background color based on the current mode
+        if (isLightMode) {
+            setBackground(Color.WHITE);
+            g.setColor(Color.BLACK);
+        } else {
+            setBackground(Color.BLACK);
+            g.setColor(Color.WHITE);
+        }
+        
         // Calculate tile size based on the grid size
         int tileSize = Math.min(getWidth() / TileWidth, getHeight() / TileHeight);
-
-        if(level==null) return;
 
         for (int y = 0; y < level.getHeight(); y++) {
             for (int x = 0; x < level.getWidth(); x++) {
@@ -143,8 +162,21 @@ public class Renderer extends JPanel {
     private JPanel createContentPanel() {
         JPanel contentPanel = new JPanel(new BorderLayout());
         JPanel sidebar = createSidebar();
+        
+        // Create a button to open the settings dialog
+        JButton settingsButton = new JButton("Settings");
+        settingsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createSettingsDialog(); // Show the settings dialog when the button is clicked
+            }
+        });
+        
         contentPanel.add(this, BorderLayout.CENTER);
         contentPanel.add(sidebar, BorderLayout.SOUTH);
+
+        // Add the settings button to the sidebar
+        sidebar.add(settingsButton);
+        
         return contentPanel;
     }
 
@@ -193,9 +225,7 @@ public class Renderer extends JPanel {
 
         // Create buttons for the sidebar
         JButton resetButton = new JButton("Reset");
-        JButton soundButton = new JButton("Sound");
-        // Add more buttons as needed
-
+        
         resetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Handle reset button click
@@ -207,21 +237,126 @@ public class Renderer extends JPanel {
             }
         });
 
-        soundButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Handle sound button click
-            	String message = "TODO: The sound button is used to control game sound settings. Will probably have a slider + ON/OFF";
-                showMessageDialog("Sound", message);
-            }
-        });
-
         // Add buttons to the sidebar
         sidebar.add(resetButton);
-        sidebar.add(soundButton);
-        // Add more buttons as needed
 
         return sidebar;
     }
+    
+    private void createSettingsDialog() {
+        JDialog settingsDialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Settings", Dialog.ModalityType.MODELESS);
+
+        // Create components for your settings dialog
+        JPanel settingsPanel = new JPanel();
+        settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
+
+        // Add a button to toggle light/dark mode
+        JButton modeToggleButton = new JButton("Light/Dark Mode");
+        modeToggleButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Toggle the mode when the button is clicked
+                isLightMode = !isLightMode;
+                repaint(); // Repaint the panel to apply the new mode
+            }
+        });
+
+        // Add buttons for other settings as needed
+        JButton soundButton = new JButton("Switch Soundtrack");
+        soundButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Handle sound settings when the button is clicked
+                stopSoundtrack(); // Stop the current soundtrack
+                currentSoundtrackIndex = (currentSoundtrackIndex + 1) % soundtracks.length; // Cycle to the next soundtrack
+                startSoundtrack(soundtracks[currentSoundtrackIndex]); // Start the new soundtrack
+            }
+        });
+
+        // Add the buttons to the settings panel
+        settingsPanel.add(modeToggleButton);
+        settingsPanel.add(soundButton);
+
+        // Add the settings panel to the dialog
+        settingsDialog.add(settingsPanel);
+
+        // Pack and display the dialog
+        settingsDialog.pack();
+        settingsDialog.setLocationRelativeTo(null);
+        settingsDialog.setVisible(true);
+    }
+
+    private void startSoundtrack(String soundtrackFilePath) {
+        // Check if sound is already playing
+        if (isSoundPlaying) {
+            return;
+        }
+
+        isSoundPlaying = true;
+
+        // Create a new thread to play the sound
+        soundThread = new Thread(() -> {
+            try {
+                // Obtain an audio input stream from the audio file
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource(soundtrackFilePath));
+
+                // Get the format of the audio data
+                AudioFormat audioFormat = audioInputStream.getFormat();
+
+                // Create a data line info object for the SourceDataLine (used for playback)
+                DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
+
+                // Open the data line using the data line info
+                SourceDataLine sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
+                sourceDataLine.open(audioFormat);
+
+                // Start the data line
+                sourceDataLine.start();
+
+                // Create a buffer for reading audio data
+                int bufferSize = 4096;
+                byte[] buffer = new byte[bufferSize];
+
+                int bytesRead;
+                while ((bytesRead = audioInputStream.read(buffer, 0, bufferSize)) != -1) {
+                    // Check if sound was stopped by the user
+                    if (!isSoundPlaying) {
+                        break;
+                    }
+                    // Write audio data to the data line for playback
+                    sourceDataLine.write(buffer, 0, bytesRead);
+                }
+
+                // Close the data line and audio input stream when done
+                sourceDataLine.drain();
+                sourceDataLine.close();
+                audioInputStream.close();
+
+                isSoundPlaying = false; // Sound playback finished
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        soundThread.start(); // Start the sound thread
+    }
+
+
+    private void stopSoundtrack() {
+        // Set the flag to stop sound playback
+        isSoundPlaying = false;
+
+        // Interrupt the sound thread to stop playback
+        if (soundThread != null) {
+            soundThread.interrupt();
+            try {
+                soundThread.join(); // Wait for the sound thread to finish
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
     
     // Helper method to show a message dialog
     private void showMessageDialog(String title, String message) {
